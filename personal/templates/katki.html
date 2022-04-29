@@ -1,0 +1,532 @@
+{% load static %}
+<!-- saved from url=(0068)https:///OgrenciIsleri/Ogrenci/OgrenciHarc/index.php -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Dokuz Eylul Universitesi</title>
+
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta name="Pragma" content="no-cache">
+
+	<link href="{% static 'css/debis.css' %}" type="text/css" rel="stylesheet">
+	<style>
+		<!-- 
+		body {
+			padding: 50px;
+			background-color: #fff;
+		}
+		-->
+	</style>
+	<link href="{% static 'css/dropdown.css' %}" media="all" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/default.css' %}" media="all" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="{% static 'js/jquery.js.download' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.dropdown.js.download' %}"></script>
+
+
+	<style>
+		.menuContainer {
+			width: 250px;
+			height: auto;
+			border: none;
+			background-color: White;
+		}
+
+		.subContainerTd {
+			padding-left: 20px;
+		}
+
+		.menuItem {
+			padding-left: 24px;
+			height: 24px;
+			background: url(php_library/semo/images/defaultMenuItem.gif' %}) no-repeat 3px center;
+			font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+			color: Black;
+		}
+
+		.menuItemOver {
+			padding-left: 24px;
+			height: 24px;
+			background: url(php_library/semo/images/defaultMenuItem.gif' %}) no-repeat 3px center #d5e5f8;
+			font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+			color: Black;
+			cursor: pointer;
+		}
+	</style>
+	<script>
+		/*	
+		 *	leftMenu.js
+		 *	organizes the left menu, depends on user id
+		 *	created by	: semih turgut, semih.turgut@deu.edu.tr
+		 *	date		: 28.01.2009
+		 */
+
+
+		function getAjaxObj() { // creates an ajax xmlhttp object and returns it
+
+			var xmlHttp;
+			try { // Firefox, Opera 8.0+, Safari
+				xmlHttp = new XMLHttpRequest();
+				return xmlHttp;
+			} catch (e) { // Internet Explorer
+				try {
+					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+					return xmlHttp;
+				} catch (e) {
+					try {
+						xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+						return xmlHttp;
+					} catch (e) {
+						alert("Tarayycynyzyn AJAX deste?i bulunmamaktadyr!");
+						return false;
+					}
+				}
+			}
+
+		} // end of getAjaxObj
+
+
+		function loadContent(path, params,
+		id) { // generic ajax loader, loads the given path, within the given parameters into the element id
+
+			// params is a list of parameters (querystring) sent to the path, must be used like
+			// var params = "param=value1&param2=value2&param3=value3"
+
+			var load = getAjaxObj();
+			var elem = document.getElementById(id);
+			var url = path + "?" + params
+			//alert(url);
+
+			load.onreadystatechange = function () {
+				if (load.readyState == 4) { // loading finished
+					if (load.status == 200) { // successfull loading
+
+						elem.innerHTML += load.responseText;
+
+						// load scripts whether loaded content has any javascript in it
+						var document_scripts = elem.getElementsByTagName("script");
+
+						for (var document_scripts_index = 0; document_scripts_index < document_scripts
+							.length; document_scripts_index++) {
+
+							if (document_scripts[document_scripts_index].src.length >
+								0) { // script referenced to a js file
+
+								var script = document.createElement('script');
+								script.type = 'text/javascript';
+								script.src = document_scripts[document_scripts_index].src;
+								document.getElementsByTagName('body')[0].appendChild(script);
+
+							} else { // script directly written in code
+
+								var script = document.createElement('script');
+								script.type = 'text/javascript';
+								script.text = document_scripts[document_scripts_index].text;
+								document.getElementsByTagName('body')[0].appendChild(script);
+
+							}
+
+						} // end of for loop			
+
+					} else if (load.status == 404) elem.innerHTML +=
+					"Sistem Belirtilen Yolu Bulamıyor!"; // path is wrong, document not found
+					else elem.innerHTML +=
+					"Bilinmeyen Bir Hata Olustu!"; // unknown error, may be timeout, or path document error		}
+				}
+				load.open("GET", url, true);
+				load.send(null);
+
+			}
+
+
+			function DynaMenu(id) {
+				/* 
+				 *	DynaMenu class 
+				 *  	Created By	: semih turgut, semih.turgut@deu.edu.tr 
+				 *  	Date		: 29.01.2009
+				 *  	Creates a menu container and adds menu elements in it
+				 *	copyright	: semih turgut, deu bilgi islem dairesi
+				 */
+
+				this.elem = null; //container obj
+				this.id = id; //identifier of menu container
+				this.iconBase = "php_library/semo/images/";
+				this.count = 0;
+				this.add = addMenuItem; //method to add a new menu item
+
+				//create container 
+				this.elem = document.getElementById(id)
+				this.elem.id = id;
+				this.elem.border = 0;
+				this.elem.className = "menuContainer";
+				//document.body.appendChild(this.elem);
+
+			} //end of class definition
+
+
+			function addMenuItem(type, id, title, icon, link) {
+
+				var row = this.elem.insertRow(this.count);
+				var cell = row.insertCell(0);
+				cell.className = "menuItem";
+				cell.id = id;
+				cell.innerHTML = title;
+				this.count++;
+
+				cell.onmouseover = function () {
+					this.className = "menuItemOver";
+				}
+				cell.onmouseout = function () {
+					this.className = "menuItem";
+				}
+
+				if (type == 'folder') { //this is a folder it has a sub menu
+
+					cell.style.backgroundImage = "url(" + this.iconBase + "folder.gif' %})";
+					cell.opened = false;
+					var subRow = this.elem.insertRow(this.count);
+					var subCell = subRow.insertCell(0);
+					subCell.innerHTML = '<table id="' + id + '_sub"></table>';
+					subCell.className = 'subContainerTd';
+					this.count++;
+					cell.onclick = function () {
+						if (this.opened) {
+							showHide(this.id + "_sub");
+						} else {
+							this.opened = true;
+							this.style.backgroundImage = "url(php_library/semo/images/loading.gif' %})";
+							loadMenu(this.id);
+						}
+
+					}
+
+				} else { // normal menu item
+					if (icon) cell.style.backgroundImage = "url(" + this.iconBase + icon + ")";
+					cell.onclick = function () {
+
+						if (type == "statik") {
+							window.open(link, "_blank");
+						} else {
+							window.location.replace(link);
+						}
+
+					}
+				}
+			}
+
+
+			function loadMenu(menuId) { // loads the sub menus of menuId for the given userId
+
+				var menuObj = getAjaxObj();
+				var url = "php_library/semo/loadMenu.php?menuId=" + menuId;
+
+				menuObj.onreadystatechange = function () {
+					if (menuObj.readyState == 4) {
+						if (menuObj.status == 200) { // successfull loading
+							var resultString = new String(menuObj.responseText);
+
+							var items = resultString.split('#'); // '#' is line seperator 
+							var item = null;
+
+							if (menuId != '') {
+								document.getElementById(menuId).style.backgroundImage =
+									"url(php_library/semo/images/folder.gif' %})";
+								var subMenu = new DynaMenu(menuId + "_sub");
+								for (i = 0; i < items.length - 1; i++) {
+									item = items[i].split('|'); // '|' is field seperator
+									if (item[0] == 'folder') subMenu.add('folder', item[1], item[2]);
+									else subMenu.add('normal', item[1], item[2], '', item[3]);
+								}
+
+							} else {
+
+								for (i = 0; i < items.length - 1; i++) {
+									item = items[i].split('|'); // '|' is field seperator
+									leftMenu.add('folder', item[0], item[1]);
+								}
+
+							}
+						} else if (menuObj.status == 404) alert(
+						"Sistem Belirtilen Yolu Bulamyyor!"); // path is wrong, document not found
+						else alert(
+						"Sistem yogunluktan dolayı yanıt veremiyor!"); // unknown error, may be timeout, or path document error
+					}
+				}
+				menuObj.open("GET", url, true);
+				menuObj.send(null);
+
+			} // end of loadSubMenu
+
+
+			// -- SHOW ----------------------------------------
+			function show(id) {
+				document.getElementById(id).style.visibility = "visible";
+				document.getElementById(id).style.display = "block";
+			}
+
+			// -- HIDE ----------------------------------------
+			function hide(id) {
+				document.getElementById(id).style.visibility = "hidden";
+				document.getElementById(id).style.display = "none";
+			}
+
+			// -- SHOW - HIDE ---------------------------------
+			function showHide(id) {
+				(document.getElementById(id).style.visibility == "hidden") ? show(id): hide(id);
+			}
+	</script>
+
+	<script>
+		function silOnay(param) {
+			if (confirm('Silmek istediginize emin misiniz?')) {
+				document.location = param
+			}
+		}
+
+		function add_script_to_page(elementId) {
+
+			var app = document.getElementById(elementId);
+			var document_scripts = app.getElementsByTagName('script');
+
+			for (var document_scripts_index = 0; document_scripts_index < document_scripts.length; document_scripts_index++) {
+				if (document_scripts[document_scripts_index].src.length > 0) {
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.src = document_scripts[document_scripts_index].src;
+					document.getElementsByTagName('body')[0].appendChild(script);
+				} else {
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.text = document_scripts[document_scripts_index].text;
+					document.getElementsByTagName('body')[0].appendChild(script);
+				}
+			}
+		}
+
+		var xmlhttp;
+		//aktif
+		function loadXMLDoc(dosya, sorgu, idimiz) {
+			//alert(dosya+sorgu);
+			document.getElementById(idimiz).innerHTML = "<img src='../../../images/gecici/yukleniyor.gif' %}' />";
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest()
+				xmlhttp.onreadystatechange = function () {
+					// if xmlhttp shows "loaded"
+					if (xmlhttp.readyState == 4) {
+						// if "OK"
+						if (xmlhttp.status == 200) {
+
+							document.getElementById(idimiz).innerHTML = xmlhttp.responseText;
+							add_script_to_page(idimiz);
+
+
+						} else {
+							alert("Bir hata olustu:" + xmlhttp.statusText)
+
+						}
+					}
+
+
+				}
+				xmlhttp.open("POST", dosya + sorgu, true);
+				xmlhttp.setRequestHeader("Content-Type", "text/xml");
+				xmlhttp.setRequestHeader("charset", "utf-8");
+				xmlhttp.send(null);
+			} else if (window.ActiveXObject) {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+				if (xmlhttp) {
+
+					xmlhttp.onreadystatechange = function () {
+						// if xmlhttp shows "loaded"
+						if (xmlhttp.readyState == 4) {
+							// if "OK"
+							if (xmlhttp.status == 200) {
+
+								document.getElementById(idimiz).innerHTML = xmlhttp.responseText;
+								add_script_to_page(idimiz);
+
+							} else {
+								alert("Bir hata olustu:" + xmlhttp.statusText)
+							}
+						}
+
+
+					}
+					xmlhttp.open("POST", dosya + sorgu, true);
+					xmlhttp.setRequestHeader("Content-Type", "text/xml");
+					xmlhttp.setRequestHeader("charset", "utf-8");
+					xmlhttp.send();
+				}
+			}
+
+
+
+		}
+	</script>
+
+
+</head>
+
+<body class="body" bgcolor="#e6ecf2" leftmargin="0" topmargin="0">
+	<div style="width: 100%; BACKGROUND-COLOR: #ffffff" align="center"><br>
+		<div style="position:relative; float:left; width:310px; padding-left:8px; color:#0066cc;"><br><br>Kullanıcı:
+			Turgut KARAKELLE</div>
+		<table cellspacing="0" cellpadding="0" width="647" align="center" border="0">
+			<tbody>
+				<tr>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="54"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="326"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="19"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="90"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="19"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="139"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="1"
+							border="0"></td>
+				</tr>
+				<tr>
+					<td class="logo"><img height="41" src="{% static 'images/deu_amblem.gif' %}" width="54"
+							border="0" name="deu_amblem"></td>
+					<td class="logo" onclick="window.location.href=&#39;https://&#39;/debis.php&#39;;"
+						style="cursor:pointer;"><img height="41" src="{% static 'images/deu_logo.gif' %}"
+							width="326" border="0" name="deu_logo"></td>
+					<td class="logo"><img height="41" src="{% static 'images/cizgi.gif' %}" width="19"
+							border="0" name="cizgi"></td>
+					<td class="logo" onclick="window.location.href=&#39;https://&#39;/debis.php&#39;;"
+						style="cursor:pointer;"><img height="41" src="{% static 'images/debis_logo.gif' %}"
+							width="90" border="0" name="debis_logo"></td>
+					<td class="logo"><img height="41" src="{% static 'images/cizgi.gif' %}" width="19"
+							border="0" name="cizgi2"></td>
+					<td class="logo"><img height="41" src="{% static 'images/debis_acilim.gif' %}"
+							width="139" border="0" name="debis_acilim"></td>
+					<td class="logo"><img height="41" src="{% static 'images/spacer.gif' %}" width="1"
+							border="0"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+	</div>
+	{% include 'base.html' %}
+	<br>
+	<table cellspacing="0" cellpadding="0" width="85%" align="center" bgcolor="#ffffff">
+		<tbody>
+			<tr>
+				<th class="dark" width="21" style="border:1px #0066CC doted;"><img
+						src="{% static 'images/ok.gif' %}" border="0"></th>
+				<th colspan="2" style="border:1px #0066CC dotted;">Katki Payi Odemelerim</th>
+			</tr>
+			<tr>
+				<td>&nbsp; </td>
+				<td nowrap="" colspan="2" valign="top">&nbsp;
+					<h4 align="center">OGRENCI HARC BEDELLERI</h4>
+
+					<table width="100%" border="0">
+						<tbody>
+							<tr>
+								<td width="50%" valign="top">
+									<table width="100%" border="0">
+										<tbody>
+											<tr>
+												<th width="15%"><b>ADI SOYADI</b></th>
+												<td width="5%"><b>:</b></td>
+												<td width="80%">TURGUT KARAKELLE</td>
+											</tr>
+											<tr>
+												<th><b>OGRENCI NO</b></th>
+												<td><b>:</b></td>
+												<td>2021275115</td>
+											</tr>
+											<tr>
+												<th><b>BIRIM ADI</b></th>
+												<td><b>:</b></td>
+												<td>Edebiyat Fakültesi - Psikoloji</td>
+											</tr>
+											<tr>
+												<th><b>UYRUK</b></th>
+												<td><b>:</b></td>
+												<td>T.C.</td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td width="50%" valign="top">
+									<table width="100%" border="0">
+										<tbody>
+											<tr>
+												<th width="15%"><b>SINIF</b></th>
+												<td width="5%"><b>:</b></td>
+												<td width="80%">1.Sinif</td>
+											</tr>
+											<tr>
+												<th><b>DURUMU</b></th>
+												<td><b>:</b></td>
+												<td>Okuyor</td>
+											</tr>
+											<tr>
+												<th><b>KATKI PAYI KREDISI</b></th>
+												<td><b>:</b></td>
+												<td>Almıyor</td>
+											</tr>
+											<tr>
+												<th><b>KATKI KREDI NO</b></th>
+												<td><b>:</b></td>
+												<td></td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+
+					<table width="100%" border="0">
+						<tbody>
+							<tr>
+								<td valign="top">
+									<table width="100%" border="0" cellspacing="0" cellpadding="0">
+										<tbody>
+											<tr>
+												<td colspan="4"><b>2021-2022 Bahar Donemi Harc Bilgileri</b></td>
+											</tr>
+											<tr>
+												<th>ACIKLAMA</th>
+												<th>BEDELI</th>
+												<th>FAIZI</th>
+												<th>KALAN</th>
+											</tr>
+											<tr>
+												<td> 1.ÖĞRETİM KATKI PAYI</td>
+												<td>2500.00 TL</td>
+												<td>0.00 TL</td>
+												<td>2500.00 TL </td>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+								<td>&nbsp;</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<font color="red"><b>2021-2022 Bahar donemi icin odenmesi gereken toplam : 2500.00
+											TL </b></font>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+					<table>
+
+
+
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

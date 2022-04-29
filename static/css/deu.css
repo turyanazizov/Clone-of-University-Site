@@ -1,0 +1,128 @@
+BODY.ic {
+        FONT-SIZE: 11px; FONT-FAMILY: Verdana; BACKGROUND-COLOR: #eaeaea; FONT-VARIANT: normal
+}
+TD.ic {
+        FONT: 10px Verdana; TEXT-INDENT: 10px; BORDER-BOTTOM: #ffd097 1px solid; HEIGHT: 30px; BACKGROUND-COLOR: #fff4e8
+}
+TH.ic {
+        FONT: bold 11px Verdana; COLOR: #ff5833; TEXT-INDENT: 10px; BORDER-BOTTOM: #ffa500 double; HEIGHT: 30px; BACKGROUND-COLOR: #ffe4c4
+}
+H2 {
+        FONT-SIZE: 12px; COLOR: #003399; FONT-STYLE: normal; FONT-FAMILY: Verdana, Geneva, Arial, Helvetica, sans-serif
+}
+EM {
+        FONT-WEIGHT: bold; FONT-SIZE: 11px; FONT-FAMILY: Verdana; FONT-VARIANT: normal
+}
+P.Baslik {
+        FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #ff0033; LINE-HEIGHT: 16px; FONT-FAMILY: Verdana; LETTER-SPACING: 2px
+}
+P {
+        FONT-SIZE: 11px; LINE-HEIGHT: 16px; FONT-FAMILY: Verdana
+}
+Ahst {
+        FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #D4F283; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+Ahst:visited {
+        FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #D4F283; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+Ahst:unknown {
+        FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #D4F283; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+Ahst:hover {
+        FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #FFFFFF; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+
+A.hst{
+        FONT-WEIGHT: bold; FONT-SIZE: 12px; COLOR: #D4F283; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+
+A:link {
+        FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #003399; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+A:visited {
+        FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #003399; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+
+A:hover {
+        FONT-WEIGHT: bold; FONT-SIZE: 10px; COLOR: #ff6600; FONT-FAMILY: Verdana; TEXT-DECORATION: none
+}
+
+HR {
+        HEIGHT:1px; COLOR:#FFCC01;
+}
+BODY {        
+	margin-left: 0px;
+	margin-top: 0px;
+	margin-right: 0px;
+	margin-bottom: 0px;
+}
+UL {
+        FONT-SIZE: 11px; LIST-STYLE-IMAGE: url('square.gif'); FONT-STYLE: normal; FONT-FAMILY: Verdana
+}
+TABLE {
+        FONT-SIZE: 11px; FONT-STYLE: normal; FONT-FAMILY: Verdana; HEIGHT: 12px
+}
+P.alt {
+        FONT-SIZE: 11px; COLOR: white; LINE-HEIGHT: 16px; FONT-FAMILY: Verdana
+}
+INPUT {
+        BORDER-RIGHT: #FFCC00 2px solid; BORDER-TOP: #FFCC00 2px solid; FONT-WEIGHT: normal; BORDER-LEFT: #FFCC00 2px solid; BORDER-BOTTOM: #FFCC00 2px solid; HEIGHT: 22px; BACKGROUND-COLOR: white; -moz-border-radius: 2px; color:#666666;
+}
+
+input:focus {
+	color:#103466;
+}
+
+.inputozel {
+        BORDER-RIGHT: #FFCC00 1px solid; BORDER-TOP: #FFCC00 1px solid; FONT-WEIGHT: normal; BORDER-LEFT: #FFCC00 1px solid; BORDER-BOTTOM: #FFCC00 1px solid; HEIGHT: 22px; BACKGROUND-COLOR: white
+}
+
+SELECT {
+        BORDER-RIGHT: #FFCC00 2px solid; BORDER-TOP: #FFCC00 2px solid; FONT-WEIGHT: normal; BORDER-LEFT: #FFCC00 2px solid; BORDER-BOTTOM: #FFCC00 2px solid; HEIGHT: 22px; BACKGROUND-COLOR: white; -moz-border-radius: 4px; color:#003399;
+}
+OPTION {
+        BORDER-RIGHT: #FFCC00 1px solid; BORDER-TOP: #FFCC00 1px solid; FONT-WEIGHT: normal; BORDER-LEFT: #FFCC00 1px solid; BORDER-BOTTOM: #FFCC00 1px solid; HEIGHT: 22px; BACKGROUND-COLOR: white;  -moz-border-radius: 4px; color:#003399;
+}
+.inputclass {
+        BORDER-RIGHT: #FFCC00 1px solid; BORDER-TOP: #FFCC00 1px solid; FONT-WEIGHT: normal; BORDER-LEFT: #FFCC00 1px solid; BORDER-BOTTOM: #FFCC00 1px solid; HEIGHT: 22px; BACKGROUND-COLOR: white
+}
+
+.borderalt {  border: #AABED2; border-style: solid; border-top-width: 0px; border-right-width: 0px; border-bottom-width: 1px; border-left-width: 0px}
+.borderall {  border: #AABED2; border-style: solid; border-top-width: 1px; border-right-width: 1px; border-bottom-width: 1px; border-left-width: 1px;-moz-border-radius: 4px;}.BASLIK {
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	font-weight: bold;
+	color:#ffffff;
+	background-color:#284B93;
+	-moz-border-radius: 0px;
+}
+.buton{font-family: Verdana; font-size: 8pt; background-color: #284B93; color: #FFFFFF; font-weight: bold; border:0px;}
+.address{
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	font-weight: normal;
+	color: #002577;
+}
+.alert {
+	background: #fff6bf url(images/exclamation.html) 15px 50% no-repeat;
+	text-align: left;
+	padding: 5px 20px 5px 45px;
+	border-top: 2px solid #ffd324;
+	border-bottom: 2px solid #ffd324;
+}
+
+.info {
+	background: #f8fafc url(images/information.html) 15px 50% no-repeat;
+	text-align: left;
+	padding: 5px 20px 5px 45px;
+	border-top: 2px solid #b5d4fe;
+	border-bottom: 2px solid #b5d4fe;
+}
+
+.download {
+	background: #cfc url(images/download.html) 15px 50% no-repeat;
+	text-align: left;
+	padding: 5px 20px 5px 45px;
+	border-top: 2px solid #3C6;
+	border-bottom: 2px solid #3C6;
+}

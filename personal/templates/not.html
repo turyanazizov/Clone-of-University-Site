@@ -1,0 +1,578 @@
+{% load static %}
+<!-- saved from url=(0067)https://debis.deu.edu.tr/OgrenciIsleri/Ogrenci/transcript/index.php -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Dokuz Eylul Universitesi</title>
+
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta name="Pragma" content="no-cache">
+
+	<link href="{% static 'css/debis.css' %}" type="text/css" rel="stylesheet">
+	<style>
+		<!-- 
+		body {
+			padding: 50px;
+			background-color: #fff;
+		}
+		-->
+	</style>
+	<link href="{% static 'css/dropdown.css' %}" media="all" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/default.css' %}" media="all" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="{% static 'js/jquery.js.download' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.dropdown.js.download' %}"></script>
+
+
+	<style>
+		.menuContainer {
+			width: 250px;
+			height: auto;
+			border: none;
+			background-color: White;
+		}
+
+		.subContainerTd {
+			padding-left: 20px;
+		}
+
+		.menuItem {
+			padding-left: 24px;
+			height: 24px;
+			background: url(php_library/semo/images/defaultMenuItem.gif' %}) no-repeat 3px center;
+			font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+			color: Black;
+		}
+
+		.menuItemOver {
+			padding-left: 24px;
+			height: 24px;
+			background: url(php_library/semo/images/defaultMenuItem.gif' %}) no-repeat 3px center #d5e5f8;
+			font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+			color: Black;
+			cursor: pointer;
+		}
+	</style>
+	<script>
+		/*	
+		 *	leftMenu.js
+		 *	organizes the left menu, depends on user id
+		 *	created by	: semih turgut, semih.turgut@deu.edu.tr
+		 *	date		: 28.01.2009
+		 */
+
+
+		function getAjaxObj() { // creates an ajax xmlhttp object and returns it
+
+			var xmlHttp;
+			try { // Firefox, Opera 8.0+, Safari
+				xmlHttp = new XMLHttpRequest();
+				return xmlHttp;
+			} catch (e) { // Internet Explorer
+				try {
+					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+					return xmlHttp;
+				} catch (e) {
+					try {
+						xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+						return xmlHttp;
+					} catch (e) {
+						alert("Tarayycynyzyn AJAX deste?i bulunmamaktadyr!");
+						return false;
+					}
+				}
+			}
+
+		} // end of getAjaxObj
+
+
+		function loadContent(path, params,
+		id) { // generic ajax loader, loads the given path, within the given parameters into the element id
+
+			// params is a list of parameters (querystring) sent to the path, must be used like
+			// var params = "param=value1&param2=value2&param3=value3"
+
+			var load = getAjaxObj();
+			var elem = document.getElementById(id);
+			var url = path + "?" + params
+			//alert(url);
+
+			load.onreadystatechange = function () {
+				if (load.readyState == 4) { // loading finished
+					if (load.status == 200) { // successfull loading
+
+						elem.innerHTML += load.responseText;
+
+						// load scripts whether loaded content has any javascript in it
+						var document_scripts = elem.getElementsByTagName("script");
+
+						for (var document_scripts_index = 0; document_scripts_index < document_scripts
+							.length; document_scripts_index++) {
+
+							if (document_scripts[document_scripts_index].src.length >
+								0) { // script referenced to a js file
+
+								var script = document.createElement('script');
+								script.type = 'text/javascript';
+								script.src = document_scripts[document_scripts_index].src;
+								document.getElementsByTagName('body')[0].appendChild(script);
+
+							} else { // script directly written in code
+
+								var script = document.createElement('script');
+								script.type = 'text/javascript';
+								script.text = document_scripts[document_scripts_index].text;
+								document.getElementsByTagName('body')[0].appendChild(script);
+
+							}
+
+						} // end of for loop			
+
+					} else if (load.status == 404) elem.innerHTML +=
+					"Sistem Belirtilen Yolu Bulamıyor!"; // path is wrong, document not found
+					else elem.innerHTML +=
+					"Bilinmeyen Bir Hata Olustu!"; // unknown error, may be timeout, or path document error		}
+				}
+				load.open("GET", url, true);
+				load.send(null);
+
+			}
+
+
+			function DynaMenu(id) {
+				/* 
+				 *	DynaMenu class 
+				 *  	Created By	: semih turgut, semih.turgut@deu.edu.tr 
+				 *  	Date		: 29.01.2009
+				 *  	Creates a menu container and adds menu elements in it
+				 *	copyright	: semih turgut, deu bilgi islem dairesi
+				 */
+
+				this.elem = null; //container obj
+				this.id = id; //identifier of menu container
+				this.iconBase = "php_library/semo/images/";
+				this.count = 0;
+				this.add = addMenuItem; //method to add a new menu item
+
+				//create container 
+				this.elem = document.getElementById(id)
+				this.elem.id = id;
+				this.elem.border = 0;
+				this.elem.className = "menuContainer";
+				//document.body.appendChild(this.elem);
+
+			} //end of class definition
+
+
+			function addMenuItem(type, id, title, icon, link) {
+
+				var row = this.elem.insertRow(this.count);
+				var cell = row.insertCell(0);
+				cell.className = "menuItem";
+				cell.id = id;
+				cell.innerHTML = title;
+				this.count++;
+
+				cell.onmouseover = function () {
+					this.className = "menuItemOver";
+				}
+				cell.onmouseout = function () {
+					this.className = "menuItem";
+				}
+
+				if (type == 'folder') { //this is a folder it has a sub menu
+
+					cell.style.backgroundImage = "url(" + this.iconBase + "folder.gif' %})";
+					cell.opened = false;
+					var subRow = this.elem.insertRow(this.count);
+					var subCell = subRow.insertCell(0);
+					subCell.innerHTML = '<table id="' + id + '_sub"></table>';
+					subCell.className = 'subContainerTd';
+					this.count++;
+					cell.onclick = function () {
+						if (this.opened) {
+							showHide(this.id + "_sub");
+						} else {
+							this.opened = true;
+							this.style.backgroundImage = "url(php_library/semo/images/loading.gif' %})";
+							loadMenu(this.id);
+						}
+
+					}
+
+				} else { // normal menu item
+					if (icon) cell.style.backgroundImage = "url(" + this.iconBase + icon + ")";
+					cell.onclick = function () {
+
+						if (type == "statik") {
+							window.open(link, "_blank");
+						} else {
+							window.location.replace(link);
+						}
+
+					}
+				}
+			}
+
+
+			function loadMenu(menuId) { // loads the sub menus of menuId for the given userId
+
+				var menuObj = getAjaxObj();
+				var url = "php_library/semo/loadMenu.php?menuId=" + menuId;
+
+				menuObj.onreadystatechange = function () {
+					if (menuObj.readyState == 4) {
+						if (menuObj.status == 200) { // successfull loading
+							var resultString = new String(menuObj.responseText);
+
+							var items = resultString.split('#'); // '#' is line seperator 
+							var item = null;
+
+							if (menuId != '') {
+								document.getElementById(menuId).style.backgroundImage =
+									"url(php_library/semo/images/folder.gif' %})";
+								var subMenu = new DynaMenu(menuId + "_sub");
+								for (i = 0; i < items.length - 1; i++) {
+									item = items[i].split('|'); // '|' is field seperator
+									if (item[0] == 'folder') subMenu.add('folder', item[1], item[2]);
+									else subMenu.add('normal', item[1], item[2], '', item[3]);
+								}
+
+							} else {
+
+								for (i = 0; i < items.length - 1; i++) {
+									item = items[i].split('|'); // '|' is field seperator
+									leftMenu.add('folder', item[0], item[1]);
+								}
+
+							}
+						} else if (menuObj.status == 404) alert(
+						"Sistem Belirtilen Yolu Bulamyyor!"); // path is wrong, document not found
+						else alert(
+						"Sistem yogunluktan dolayı yanıt veremiyor!"); // unknown error, may be timeout, or path document error
+					}
+				}
+				menuObj.open("GET", url, true);
+				menuObj.send(null);
+
+			} // end of loadSubMenu
+
+
+			// -- SHOW ----------------------------------------
+			function show(id) {
+				document.getElementById(id).style.visibility = "visible";
+				document.getElementById(id).style.display = "block";
+			}
+
+			// -- HIDE ----------------------------------------
+			function hide(id) {
+				document.getElementById(id).style.visibility = "hidden";
+				document.getElementById(id).style.display = "none";
+			}
+
+			// -- SHOW - HIDE ---------------------------------
+			function showHide(id) {
+				(document.getElementById(id).style.visibility == "hidden") ? show(id): hide(id);
+			}
+	</script>
+
+	<script>
+		function silOnay(param) {
+			if (confirm('Silmek istediginize emin misiniz?')) {
+				document.location = param
+			}
+		}
+
+		function add_script_to_page(elementId) {
+
+			var app = document.getElementById(elementId);
+			var document_scripts = app.getElementsByTagName('script');
+
+			for (var document_scripts_index = 0; document_scripts_index < document_scripts.length; document_scripts_index++) {
+				if (document_scripts[document_scripts_index].src.length > 0) {
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.src = document_scripts[document_scripts_index].src;
+					document.getElementsByTagName('body')[0].appendChild(script);
+				} else {
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.text = document_scripts[document_scripts_index].text;
+					document.getElementsByTagName('body')[0].appendChild(script);
+				}
+			}
+		}
+
+		var xmlhttp;
+		//aktif
+		function loadXMLDoc(dosya, sorgu, idimiz) {
+			//alert(dosya+sorgu);
+			document.getElementById(idimiz).innerHTML = "<img src='../../../images/gecici/yukleniyor.gif' %}' />";
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest()
+				xmlhttp.onreadystatechange = function () {
+					// if xmlhttp shows "loaded"
+					if (xmlhttp.readyState == 4) {
+						// if "OK"
+						if (xmlhttp.status == 200) {
+
+							document.getElementById(idimiz).innerHTML = xmlhttp.responseText;
+							add_script_to_page(idimiz);
+
+
+						} else {
+							alert("Bir hata olustu:" + xmlhttp.statusText)
+
+						}
+					}
+
+
+				}
+				xmlhttp.open("POST", dosya + sorgu, true);
+				xmlhttp.setRequestHeader("Content-Type", "text/xml");
+				xmlhttp.setRequestHeader("charset", "utf-8");
+				xmlhttp.send(null);
+			} else if (window.ActiveXObject) {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+				if (xmlhttp) {
+
+					xmlhttp.onreadystatechange = function () {
+						// if xmlhttp shows "loaded"
+						if (xmlhttp.readyState == 4) {
+							// if "OK"
+							if (xmlhttp.status == 200) {
+
+								document.getElementById(idimiz).innerHTML = xmlhttp.responseText;
+								add_script_to_page(idimiz);
+
+							} else {
+								alert("Bir hata olustu:" + xmlhttp.statusText)
+							}
+						}
+
+
+					}
+					xmlhttp.open("POST", dosya + sorgu, true);
+					xmlhttp.setRequestHeader("Content-Type", "text/xml");
+					xmlhttp.setRequestHeader("charset", "utf-8");
+					xmlhttp.send();
+				}
+			}
+
+
+
+		}
+	</script>
+
+
+</head>
+
+<body class="body" bgcolor="#e6ecf2" leftmargin="0" topmargin="0">
+	<div style="width: 100%; BACKGROUND-COLOR: #ffffff" align="center"><br>
+		<div style="position:relative; float:left; width:310px; padding-left:8px; color:#0066cc;"><br><br>Kullanıcı:
+			Turgut KARAKELLE</div>
+		<table cellspacing="0" cellpadding="0" width="647" align="center" border="0">
+			<tbody>
+				<tr>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="54" border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="326" border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="19" border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="90" border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="19" border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="139" border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="1" border="0"></td>
+				</tr>
+				<tr>
+					<td class="logo"><img height="41" src="{% static 'images/deu_amblem.gif' %}" width="54" border="0"
+							name="deu_amblem"></td>
+					<td class="logo" onclick="window.location.href=&#39;https://debis.deu.edu.tr&#39;/debis.php&#39;;"
+						style="cursor:pointer;"><img height="41" src="{% static 'images/deu_logo.gif' %}" width="326"
+							border="0" name="deu_logo"></td>
+					<td class="logo"><img height="41" src="{% static 'images/cizgi.gif' %}" width="19" border="0"
+							name="cizgi"></td>
+					<td class="logo" onclick="window.location.href=&#39;https://debis.deu.edu.tr&#39;/debis.php&#39;;"
+						style="cursor:pointer;"><img height="41" src="{% static 'images/debis_logo.gif' %}" width="90"
+							border="0" name="debis_logo"></td>
+					<td class="logo"><img height="41" src="{% static 'images/cizgi.gif' %}" width="19" border="0"
+							name="cizgi2"></td>
+					<td class="logo"><img height="41" src="{% static 'images/debis_acilim.gif' %}" width="139"
+							border="0" name="debis_acilim"></td>
+					<td class="logo"><img height="41" src="{% static 'images/spacer.gif' %}" width="1" border="0"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+	</div>
+	<table cellspacing="0" cellpadding="0" width="100%" align="center" bgcolor="#0066cc" border="0">
+		<tbody>
+			<tr>
+				<td class="header" valign="bottom" align="middle" height="40">
+					<div align="center">
+						<table border="0" cellspacing="0" cellpadding="0" style="height:40px;">
+							<tbody>
+								<tr align="center">
+									<td align="center">
+										<ul id="nav" class="dropdown dropdown-linear" style="z-index:0;">
+											<li style="background-color:#0066cc; cursor:auto;">&nbsp;</li>
+											<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+												debis.php";"=""><a
+													href="https://debis.deu.edu.tr/debis.php">ANASAYFA</a></li>
+											<li class="dir" style="color:yellow;">KISISEL ISLEMLERIM
+												<ul>
+
+													<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+														ogrenciisleri="" ogrenci="" dersprogrami="" index.php";"=""><a
+															href="https://debis.deu.edu.tr/OgrenciIsleri/Ogrenci/DersProgrami/index.php">Ders
+															programım</a></li>
+													<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+														ogrenciisleri="" ogrenci="" ogrencinotu="" index.php";"=""><a
+															href="https://debis.deu.edu.tr/OgrenciIsleri/Ogrenci/OgrenciNotu/index.php">Not
+															görme ekranı</a></li>
+													<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+														ogrenciisleri="" ogrenci="" ogrencinotu="" index.php";"=""><a
+															href="https://debis.deu.edu.tr/OgrenciIsleri/Ogrenci/ydy_not/index.php"><b>YDY</b>
+															Not görme ekranı</a></li>
+													<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+														ogrenciisleri="" ogrenci="" ogrencinotu="" index.php";"=""><a
+															href="https://debis.deu.edu.tr/OgrenciIsleri/Ogrenci/ydy_devamsizlik/index.php"><b>YDY</b>
+															Ögrenci Devamsızlık Bilgileri</a></li>
+													<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+														ogrenciisleri="" ogrenci="" transcript="" index.php";"=""><a
+															href="https://debis.deu.edu.tr/OgrenciIsleri/Ogrenci/transcript/index.php">Not
+															döküm belgesi</a></li>
+													<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+														ogrenciisleri="" ogrenci="" transcript="" index.php";"=""><a
+															href="http://akillikart.deu.edu.tr/yurt/yurtBasvuru/index.php">Yurt
+															Basvurusu</a></li>
+
+													<li onclick="window.location.href=" https:=""
+														mezun.deu.edu.tr="" "="" target=" \&quot;_blank\&quot;">
+														<a href="https://mezun.deu.edu.tr/"
+															target="\&quot;_blank\&quot;">Mezun Bilgi Formu</a></li>
+
+													<li onclick="window.location.href=" https:=""
+														debishs.deu.edu.tr="" "="" target=" \&quot;_blank\&quot;"><a
+															href="https://debishs.deu.edu.tr/"
+															target="\&quot;_blank\&quot;">Sifre degistirme</a></li>
+
+												</ul>
+											</li>
+											<li>OGRENCI E-POSTA
+												<ul>
+													<li><a href="http://webmail.deu.edu.tr/ogrmail/src/login.php"
+															target="_blank">Klasik WebMail</a></li>
+													<li><a href="https://webmail7.deu.edu.tr/" target="_blank">Yeni
+															WebMail</a></li><a href="https://webmail7.deu.edu.tr/"
+														target="_blank">
+													</a>
+												</ul><a href="https://webmail7.deu.edu.tr/" target="_blank">
+												</a></li><a href="https://webmail7.deu.edu.tr/" target="_blank">
+
+											</a>
+											<li
+												onclick="window.location.href=&#39;../../../DEUWeb/mesaj/index.php&#39;;">
+												<a href="https://webmail7.deu.edu.tr/" target="_blank"></a><a
+													href="https://debis.deu.edu.tr/DEUWeb/mesaj/index.php">MESAJLAR</a>
+											</li>
+											<li><a href="https://debis.deu.edu.tr/DEUWeb/Anket/index.php">ANKETLER</a>
+											</li>
+											<!--  <li><a href="http://web.deu.edu.tr/sss/" target="_blank">SIKÇA SORULAN SORULAR</a></li>  -->
+											<li class="dir">SIKÇA SORULAN SORULAR
+												<ul>
+													<li><a href="http://eduroam.deu.edu.tr/" target="_blank">Kablosuz ag
+															hizmetinden nasıl faydalanabilirim?</a></li>
+													<li><a href="http://web.deu.edu.tr/sss/posta.html"
+															target="_blank">Dokuz Eylül Universitesi E-Posta kullanım
+															kılavuzu</a></li>
+													<li><a href="http://web.deu.edu.tr/sss/spam.html"
+															target="_blank">Spam posta nedir?</a></li>
+													<li><a href="http://web.deu.edu.tr/sss/proxy_ogrenci.html"
+															target="_blank">Kütüphane veritabanlarına erisim-proxy
+															ayarları nasıl yapılır? (Ögrenci için)</a></li>
+													<li><a href="http://web.deu.edu.tr/sss/proxy.html"
+															target="_blank">Kütüphane veritabanlarına erisim-proxy
+															ayarları nasıl yapılır? (Personel için)</a></li>
+													<!--<li>Kayıp Parola islemleri</li>-->
+												</ul>
+											</li>
+											<li onclick="window.location.href=" https:="" debis.deu.edu.tr=""
+												php_library="" cikis.php";"=""><a
+													href="https://debis.deu.edu.tr/php_library/Cikis.php">ÇIKIS</a></li>
+										</ul>
+
+
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<br>
+	<table cellspacing="0" cellpadding="0" width="85%" align="center" bgcolor="#ffffff">
+		<tbody>
+			<tr>
+				<th class="dark" width="21" style="border:1px #0066CC doted;"><img src="{% static 'images/ok.gif' %}"
+						border="0"></th>
+				<th colspan="2" style="border:1px #0066CC dotted;">Not Durum Belgesi Sorgulama Ekranı</th>
+			</tr>
+			<tr>
+				<td>&nbsp; </td>
+				<td nowrap="" colspan="2" valign="top">&nbsp;
+					<form name="form_sinif" method="post"
+						action="https://debis.deu.edu.tr/OgrenciIsleri/Rapor/ogrenci_bazli_listeler/en_yeni_transcript/transcript.php"
+						target="blank">
+						<table width="100%" border="0" cellspacing="1" cellpadding="1">
+							<tbody>
+								<tr>
+									<th width="14%"><b>ADI SOYADI</b></th>
+									<td width="2%"><b>:</b></td>
+									<td width="44%">TURGUT KARAKELLE</td>
+									<td width="40%">&nbsp;</td>
+								</tr>
+								<tr>
+									<th><b>ÖĞRENCİ NO</b></th>
+									<td><b>:</b></td>
+									<td>2021275115</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th><b>SINIF</b></th>
+									<td><b>:</b></td>
+									<td>1.Sınıf</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th><b>FAKULTE ADI</b></th>
+									<td><b>:</b></td>
+									<td>Edebiyat Fakültesi</td>
+									<td>&nbsp;</td>
+								</tr>
+								<tr>
+									<th><b>BOLUM ADI</b></th>
+									<td><b>:</b></td>
+									<td>Psikoloji</td>
+									<td>&nbsp;</td>
+								</tr>
+							</tbody>
+						</table>
+
+						<table width="100%" border="0" cellspacing="1" cellpadding="1">
+							<tbody>
+								<tr>
+									<td style="text-align:center;padding:5px">
+										<a target="_blank" href="{% static 'doc/transcript.php.pdf' %}" style="font-size:1.3em;color:black;text-decoration:none;border:2px solid black;padding:5px;height:36px;width:200px">TRANSCRIPT GOSTER</a></td>
+								</tr>
+							</tbody>
+							
+						</table>
+					</form>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

@@ -1,0 +1,717 @@
+{% load static %}
+<!-- saved from url=(0069)https:///OgrenciIsleri/Ogrenci/DersProgrami/index.php -->
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>Dokuz Eylul Universitesi</title>
+
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta name="Pragma" content="no-cache">
+
+	<link href="{% static 'css/debis.css' %}" type="text/css" rel="stylesheet">
+	<style>
+		<!-- 
+		body {
+			padding: 50px;
+			background-color: #fff;
+		}
+		-->
+	</style>
+	<link href="{% static 'css/dropdown.css' %}" media="all" rel="stylesheet" type="text/css">
+	<link href="{% static 'css/default.css' %}" media="all" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="{% static 'js/jquery.js.download' %}"></script>
+	<script type="text/javascript" src="{% static 'js/jquery.dropdown.js.download' %}"></script>
+
+
+	<style>
+		.menuContainer {
+			width: 250px;
+			height: auto;
+			border: none;
+			background-color: White;
+		}
+
+		.subContainerTd {
+			padding-left: 20px;
+		}
+
+		.menuItem {
+			padding-left: 24px;
+			height: 24px;
+			background: url(php_library/semo/images/defaultMenuItem.gif' %}) no-repeat 3px center;
+			font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+			color: Black;
+		}
+
+		.menuItemOver {
+			padding-left: 24px;
+			height: 24px;
+			background: url(php_library/semo/images/defaultMenuItem.gif' %}) no-repeat 3px center #d5e5f8;
+			font: normal 11px Tahoma, Arial, Helvetica, sans-serif;
+			color: Black;
+			cursor: pointer;
+		}
+	</style>
+	<script>
+		/*	
+		 *	leftMenu.js
+		 *	organizes the left menu, depends on user id
+		 *	created by	: semih turgut, semih.turgut@deu.edu.tr
+		 *	date		: 28.01.2009
+		 */
+
+
+		function getAjaxObj() { // creates an ajax xmlhttp object and returns it
+
+			var xmlHttp;
+			try { // Firefox, Opera 8.0+, Safari
+				xmlHttp = new XMLHttpRequest();
+				return xmlHttp;
+			} catch (e) { // Internet Explorer
+				try {
+					xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+					return xmlHttp;
+				} catch (e) {
+					try {
+						xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+						return xmlHttp;
+					} catch (e) {
+						alert("Tarayycynyzyn AJAX deste?i bulunmamaktadyr!");
+						return false;
+					}
+				}
+			}
+
+		} // end of getAjaxObj
+
+
+		function loadContent(path, params,
+		id) { // generic ajax loader, loads the given path, within the given parameters into the element id
+
+			// params is a list of parameters (querystring) sent to the path, must be used like
+			// var params = "param=value1&param2=value2&param3=value3"
+
+			var load = getAjaxObj();
+			var elem = document.getElementById(id);
+			var url = path + "?" + params
+			//alert(url);
+
+			load.onreadystatechange = function () {
+				if (load.readyState == 4) { // loading finished
+					if (load.status == 200) { // successfull loading
+
+						elem.innerHTML += load.responseText;
+
+						// load scripts whether loaded content has any javascript in it
+						var document_scripts = elem.getElementsByTagName("script");
+
+						for (var document_scripts_index = 0; document_scripts_index < document_scripts
+							.length; document_scripts_index++) {
+
+							if (document_scripts[document_scripts_index].src.length >
+								0) { // script referenced to a js file
+
+								var script = document.createElement('script');
+								script.type = 'text/javascript';
+								script.src = document_scripts[document_scripts_index].src;
+								document.getElementsByTagName('body')[0].appendChild(script);
+
+							} else { // script directly written in code
+
+								var script = document.createElement('script');
+								script.type = 'text/javascript';
+								script.text = document_scripts[document_scripts_index].text;
+								document.getElementsByTagName('body')[0].appendChild(script);
+
+							}
+
+						} // end of for loop			
+
+					} else if (load.status == 404) elem.innerHTML +=
+					"Sistem Belirtilen Yolu Bulamıyor!"; // path is wrong, document not found
+					else elem.innerHTML +=
+					"Bilinmeyen Bir Hata Olustu!"; // unknown error, may be timeout, or path document error		}
+				}
+				load.open("GET", url, true);
+				load.send(null);
+
+			}
+
+
+			function DynaMenu(id) {
+				/* 
+				 *	DynaMenu class 
+				 *  	Created By	: semih turgut, semih.turgut@deu.edu.tr 
+				 *  	Date		: 29.01.2009
+				 *  	Creates a menu container and adds menu elements in it
+				 *	copyright	: semih turgut, deu bilgi islem dairesi
+				 */
+
+				this.elem = null; //container obj
+				this.id = id; //identifier of menu container
+				this.iconBase = "php_library/semo/images/";
+				this.count = 0;
+				this.add = addMenuItem; //method to add a new menu item
+
+				//create container 
+				this.elem = document.getElementById(id)
+				this.elem.id = id;
+				this.elem.border = 0;
+				this.elem.className = "menuContainer";
+				//document.body.appendChild(this.elem);
+
+			} //end of class definition
+
+
+			function addMenuItem(type, id, title, icon, link) {
+
+				var row = this.elem.insertRow(this.count);
+				var cell = row.insertCell(0);
+				cell.className = "menuItem";
+				cell.id = id;
+				cell.innerHTML = title;
+				this.count++;
+
+				cell.onmouseover = function () {
+					this.className = "menuItemOver";
+				}
+				cell.onmouseout = function () {
+					this.className = "menuItem";
+				}
+
+				if (type == 'folder') { //this is a folder it has a sub menu
+
+					cell.style.backgroundImage = "url(" + this.iconBase + "folder.gif' %})";
+					cell.opened = false;
+					var subRow = this.elem.insertRow(this.count);
+					var subCell = subRow.insertCell(0);
+					subCell.innerHTML = '<table id="' + id + '_sub"></table>';
+					subCell.className = 'subContainerTd';
+					this.count++;
+					cell.onclick = function () {
+						if (this.opened) {
+							showHide(this.id + "_sub");
+						} else {
+							this.opened = true;
+							this.style.backgroundImage = "url(php_library/semo/images/loading.gif' %})";
+							loadMenu(this.id);
+						}
+
+					}
+
+				} else { // normal menu item
+					if (icon) cell.style.backgroundImage = "url(" + this.iconBase + icon + ")";
+					cell.onclick = function () {
+
+						if (type == "statik") {
+							window.open(link, "_blank");
+						} else {
+							window.location.replace(link);
+						}
+
+					}
+				}
+			}
+
+
+			function loadMenu(menuId) { // loads the sub menus of menuId for the given userId
+
+				var menuObj = getAjaxObj();
+				var url = "php_library/semo/loadMenu.php?menuId=" + menuId;
+
+				menuObj.onreadystatechange = function () {
+					if (menuObj.readyState == 4) {
+						if (menuObj.status == 200) { // successfull loading
+							var resultString = new String(menuObj.responseText);
+
+							var items = resultString.split('#'); // '#' is line seperator 
+							var item = null;
+
+							if (menuId != '') {
+								document.getElementById(menuId).style.backgroundImage =
+									"url(php_library/semo/images/folder.gif' %})";
+								var subMenu = new DynaMenu(menuId + "_sub");
+								for (i = 0; i < items.length - 1; i++) {
+									item = items[i].split('|'); // '|' is field seperator
+									if (item[0] == 'folder') subMenu.add('folder', item[1], item[2]);
+									else subMenu.add('normal', item[1], item[2], '', item[3]);
+								}
+
+							} else {
+
+								for (i = 0; i < items.length - 1; i++) {
+									item = items[i].split('|'); // '|' is field seperator
+									leftMenu.add('folder', item[0], item[1]);
+								}
+
+							}
+						} else if (menuObj.status == 404) alert(
+						"Sistem Belirtilen Yolu Bulamyyor!"); // path is wrong, document not found
+						else alert(
+						"Sistem yogunluktan dolayı yanıt veremiyor!"); // unknown error, may be timeout, or path document error
+					}
+				}
+				menuObj.open("GET", url, true);
+				menuObj.send(null);
+
+			} // end of loadSubMenu
+
+
+			// -- SHOW ----------------------------------------
+			function show(id) {
+				document.getElementById(id).style.visibility = "visible";
+				document.getElementById(id).style.display = "block";
+			}
+
+			// -- HIDE ----------------------------------------
+			function hide(id) {
+				document.getElementById(id).style.visibility = "hidden";
+				document.getElementById(id).style.display = "none";
+			}
+
+			// -- SHOW - HIDE ---------------------------------
+			function showHide(id) {
+				(document.getElementById(id).style.visibility == "hidden") ? show(id): hide(id);
+			}
+	</script>
+
+	<script>
+		function silOnay(param) {
+			if (confirm('Silmek istediginize emin misiniz?')) {
+				document.location = param
+			}
+		}
+
+		function add_script_to_page(elementId) {
+
+			var app = document.getElementById(elementId);
+			var document_scripts = app.getElementsByTagName('script');
+
+			for (var document_scripts_index = 0; document_scripts_index < document_scripts.length; document_scripts_index++) {
+				if (document_scripts[document_scripts_index].src.length > 0) {
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.src = document_scripts[document_scripts_index].src;
+					document.getElementsByTagName('body')[0].appendChild(script);
+				} else {
+					var script = document.createElement('script');
+					script.type = 'text/javascript';
+					script.text = document_scripts[document_scripts_index].text;
+					document.getElementsByTagName('body')[0].appendChild(script);
+				}
+			}
+		}
+
+		var xmlhttp;
+		//aktif
+		function loadXMLDoc(dosya, sorgu, idimiz) {
+			//alert(dosya+sorgu);
+			document.getElementById(idimiz).innerHTML = "<img src='../../../images/gecici/yukleniyor.gif' %}' />";
+			if (window.XMLHttpRequest) {
+				xmlhttp = new XMLHttpRequest()
+				xmlhttp.onreadystatechange = function () {
+					// if xmlhttp shows "loaded"
+					if (xmlhttp.readyState == 4) {
+						// if "OK"
+						if (xmlhttp.status == 200) {
+
+							document.getElementById(idimiz).innerHTML = xmlhttp.responseText;
+							add_script_to_page(idimiz);
+
+
+						} else {
+							alert("Bir hata olustu:" + xmlhttp.statusText)
+
+						}
+					}
+
+
+				}
+				xmlhttp.open("POST", dosya + sorgu, true);
+				xmlhttp.setRequestHeader("Content-Type", "text/xml");
+				xmlhttp.setRequestHeader("charset", "utf-8");
+				xmlhttp.send(null);
+			} else if (window.ActiveXObject) {
+				xmlhttp = new ActiveXObject("Microsoft.XMLHTTP")
+				if (xmlhttp) {
+
+					xmlhttp.onreadystatechange = function () {
+						// if xmlhttp shows "loaded"
+						if (xmlhttp.readyState == 4) {
+							// if "OK"
+							if (xmlhttp.status == 200) {
+
+								document.getElementById(idimiz).innerHTML = xmlhttp.responseText;
+								add_script_to_page(idimiz);
+
+							} else {
+								alert("Bir hata olustu:" + xmlhttp.statusText)
+							}
+						}
+
+
+					}
+					xmlhttp.open("POST", dosya + sorgu, true);
+					xmlhttp.setRequestHeader("Content-Type", "text/xml");
+					xmlhttp.setRequestHeader("charset", "utf-8");
+					xmlhttp.send();
+				}
+			}
+
+
+
+		}
+	</script>
+
+
+</head>
+
+<body class="body" bgcolor="#e6ecf2" leftmargin="0" topmargin="0">
+	<div style="width: 100%; BACKGROUND-COLOR: #ffffff" align="center"><br>
+		<div style="position:relative; float:left; width:310px; padding-left:8px; color:#0066cc;"><br><br>Kullanıcı:
+			Turgut KARAKELLE</div>
+		<table cellspacing="0" cellpadding="0" width="647" align="center" border="0">
+			<tbody>
+				<tr>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="54"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="326"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="19"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="90"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="19"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="139"
+							border="0"></td>
+					<td class="logo"><img height="1" src="{% static 'images/spacer.gif' %}" width="1"
+							border="0"></td>
+				</tr>
+				<tr>
+					<td class="logo"><img height="41" src="{% static 'images/deu_amblem.gif' %}" width="54"
+							border="0" name="deu_amblem"></td>
+					<td class="logo" onclick="window.location.href=&#39;https://&#39;/debis.php&#39;;"
+						style="cursor:pointer;"><img height="41" src="{% static 'images/deu_logo.gif' %}"
+							width="326" border="0" name="deu_logo"></td>
+					<td class="logo"><img height="41" src="{% static 'images/cizgi.gif' %}" width="19"
+							border="0" name="cizgi"></td>
+					<td class="logo" onclick="window.location.href=&#39;https://&#39;/debis.php&#39;;"
+						style="cursor:pointer;"><img height="41" src="{% static 'images/debis_logo.gif' %}"
+							width="90" border="0" name="debis_logo"></td>
+					<td class="logo"><img height="41" src="{% static 'images/cizgi.gif' %}" width="19"
+							border="0" name="cizgi2"></td>
+					<td class="logo"><img height="41" src="{% static 'images/debis_acilim.gif' %}"
+							width="139" border="0" name="debis_acilim"></td>
+					<td class="logo"><img height="41" src="{% static 'images/spacer.gif' %}" width="1"
+							border="0"></td>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+	</div>
+	{% include 'base.html' %}
+	<br>
+	<table cellspacing="0" cellpadding="0" width="100%" align="center" bgcolor="#ffffff">
+		<tbody>
+			<tr>
+				<th class="dark" width="21" style="border:1px #0066CC doted;"><img
+						src="{% static 'images/ok.gif' %}" border="0"></th>
+				<th colspan="2" style="border:1px #0066CC dotted;">Haftalık Ders Programı</th>
+			</tr>
+			<tr>
+				<td>&nbsp; </td>
+				<td nowrap="" colspan="2" valign="top">&nbsp;<form name="Form1" method="POST"
+						>
+						{% csrf_token %}
+						<table>
+							<tbody>
+								<tr>
+									<td><select name="ogretim_donemi_id" id="ogretim_donemi_id">
+											<option value="284" selected="">2021-2022 Bahar</option>
+											<option value="283">2021-2022 Guz</option>
+										</select><input type="submit" value="HAFTALARI GOSTER"><select name="hafta"
+											id="hafta">
+											<option value="21/02/2022-26/02/2022">21/02/2022-26/02/2022</option>
+											<option value="28/02/2022-05/03/2022">28/02/2022-05/03/2022</option>
+											<option value="07/03/2022-12/03/2022">07/03/2022-12/03/2022</option>
+											<option value="14/03/2022-19/03/2022">14/03/2022-19/03/2022</option>
+											<option value="21/03/2022-26/03/2022">21/03/2022-26/03/2022</option>
+											<option value="28/03/2022-02/04/2022">28/03/2022-02/04/2022</option>
+											<option value="04/04/2022-09/04/2022">04/04/2022-09/04/2022</option>
+											<option value="11/04/2022-16/04/2022">11/04/2022-16/04/2022</option>
+											<option value="18/04/2022-23/04/2022">18/04/2022-23/04/2022</option>
+											<option value="25/04/2022-30/04/2022" selected="">25/04/2022-30/04/2022
+											</option>
+											<option value="02/05/2022-07/05/2022">02/05/2022-07/05/2022</option>
+											<option value="09/05/2022-14/05/2022">09/05/2022-14/05/2022</option>
+											<option value="16/05/2022-21/05/2022">16/05/2022-21/05/2022</option>
+											<option value="23/05/2022-28/05/2022">23/05/2022-28/05/2022</option>
+											<option value="30/05/2022-04/06/2022">30/05/2022-04/06/2022</option>
+										</select><input type="submit" value="DERS PROGRAMINI GOSTER"></td>
+								</tr>
+							</tbody>
+						</table>
+					</form>
+					<script>
+						function gonder() {
+							document.pdfform.onaylayan.value = document.getElementById('onay').value;
+							document.pdfform.onayunvan.value = document.getElementById('onayunv').value;
+							document.pdfform.aciklamah.value = document.getElementById('aciklama').value;
+							document.pdfform.submit();
+						}
+					</script>
+
+					<table width="100%" border="0" cellspacing="0" cellpadding="0" align="center">
+						<tbody>
+							<tr>
+								<td width="100%" colspan="5" border="0" align="center">
+									<b>DOKUZ EYLÜL ÜNİVERİSTESİ<br><br>
+										<center>Edebiyat Fakültesi</center>
+									</b>
+								</td>
+							</tr>
+							<tr>
+								<td width="10%">OGRENCI NO</td>
+								<td colspan="4">2021275115</td>
+							</tr>
+							<tr>
+								<td>ADI SOYADI</td>
+								<td colspan="4">TURGUT KARAKELLE</td>
+							</tr>
+							<tr>
+								<td>BOLUM</td>
+								<td>Psikoloji</td>
+								<td width="15%">&nbsp;</td>
+								<td width="15%">&nbsp;</td>
+								<td width="30%" align="right">2021-2022 Bahar Dönemi 25/04/2022-30/04/2022 Haftası</td>
+							</tr>
+						</tbody>
+					</table>
+					<table width="99%" border="1" cellspacing="0" cellpadding="0" align="center" bordercolor="#FF9900">
+						<tbody>
+							<tr>
+								<th width="10%" align="center">SAAT</th>
+								<th width="15%" align="center">PAZARTESI</th>
+								<th width="15%" align="center">SALI</th>
+								<th width="15%" align="center">CARSAMBA</th>
+								<th width="15%" align="center">PERSEMBE</th>
+								<th width="15%" align="center">CUMA</th>
+								<th width="15%" align="center">CUMARTESI</th>
+							</tr>
+							<tr>
+								<td width="10%" align="center">
+									<font size="2"><b>09:25 10:10</b></font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>SOS 1112-Introduction to Sociology<br>1.Şube
+										Teorik<br>DOÇ.DR. SERAP AKFIRAT<br><b>Derslik:</b>FEN-B1-K1-9<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1014-Introduction to Behavioral
+										Genetics*<br>1.Şube Teorik<br> ÖMER
+										KÜLHANCI<br><b>Derslik:</b>FEN-A1-K4-13<br><b>Ogrenim Sekli:</b>Normal
+										Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+							</tr>
+							<tr>
+								<td width="10%" align="center">
+									<font size="2"><b>10:20 11:05</b></font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>SOS 1112-Introduction to Sociology<br>1.Şube
+										Teorik<br>DOÇ.DR. SERAP AKFIRAT<br><b>Derslik:</b>FEN-B1-K1-9<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>ATA 1002-Principles of Ataturk and History of The
+										Turkish Revolution II<br>1.Şube Teorik<br>DR. SADIK
+										KURT<br><b>Derslik:</b>DERSLIK DIŞI MEKAN<br><b>Ogrenim Sekli:</b>Uzaktan
+										Canli<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1014-Introduction to Behavioral
+										Genetics*<br>1.Şube Teorik<br> ÖMER
+										KÜLHANCI<br><b>Derslik:</b>FEN-A1-K4-13<br><b>Ogrenim Sekli:</b>Normal
+										Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>TDL 1002-Turkish Language II<br>1.Şube
+										Teorik<br>DR. NALAN ŞENATA<br><b>Derslik:</b>DERSLIK DIŞI MEKAN<br><b>Ogrenim
+											Sekli:</b>Uzaktan Canli<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+							</tr>
+							<tr>
+								<td width="10%" align="center">
+									<font size="2"><b>11:15 12:00</b></font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>SOS 1112-Introduction to Sociology<br>1.Şube
+										Teorik<br>DOÇ.DR. SERAP AKFIRAT<br><b>Derslik:</b>FEN-B1-K1-9<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>ATA 1002-Principles of Ataturk and History of The
+										Turkish Revolution II<br>1.Şube Teorik<br>DR. SADIK
+										KURT<br><b>Derslik:</b>DERSLIK DIŞI MEKAN<br><b>Ogrenim Sekli:</b>Uzaktan
+										Canli<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1014-Introduction to Behavioral
+										Genetics*<br>1.Şube Teorik<br> ÖMER
+										KÜLHANCI<br><b>Derslik:</b>FEN-A1-K4-13<br><b>Ogrenim Sekli:</b>Normal
+										Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>TDL 1002-Turkish Language II<br>1.Şube
+										Teorik<br>DR. NALAN ŞENATA<br><b>Derslik:</b>DERSLIK DIŞI MEKAN<br><b>Ogrenim
+											Sekli:</b>Uzaktan Canli<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+							</tr>
+							<tr>
+								<td width="10%" align="center">
+									<font size="2"><b>13:00 13:45</b></font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1004-Introduction to Psychology II*<br>1.Şube
+										Teorik<br>DR. ELÇİN YORULMAZ<br><b>Derslik:</b>FEN-B1-K1-9<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1012-Statistics for Psychology II<br>1.Şube
+										Teorik<br>PROF.DR. ESİN FİRUZAN<br><b>Derslik:</b>FEN-A1-K4-13<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>MUT 1112-Academic Presentation Skills*<br>1.Şube
+										Teorik<br>DR. ÖZGE ERARSLAN İNGEÇ<br><b>Derslik:</b>FEN-A1-K4-12<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+							</tr>
+							<tr>
+								<td width="10%" align="center">
+									<font size="2"><b>13:55 14:40</b></font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1004-Introduction to Psychology II*<br>1.Şube
+										Teorik<br>DR. ELÇİN YORULMAZ<br><b>Derslik:</b>FEN-B1-K1-9<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1012-Statistics for Psychology II<br>1.Şube
+										Teorik<br>PROF.DR. ESİN FİRUZAN<br><b>Derslik:</b>FEN-A1-K4-13<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>MUT 1112-Academic Presentation Skills*<br>1.Şube
+										Teorik<br>DR. ÖZGE ERARSLAN İNGEÇ<br><b>Derslik:</b>FEN-A1-K4-12<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+							</tr>
+							<tr>
+								<td width="10%" align="center">
+									<font size="2"><b>14:50 15:35</b></font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1004-Introduction to Psychology II*<br>1.Şube
+										Teorik<br>DR. ELÇİN YORULMAZ<br><b>Derslik:</b>FEN-B1-K1-9<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1012-Statistics for Psychology II<br>1.Şube
+										Uygulama<br>PROF.DR. ESİN FİRUZAN<br><b>Derslik:</b>FEN-A1-K4-13<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>MUT 1112-Academic Presentation Skills*<br>1.Şube
+										Teorik<br>DR. ÖZGE ERARSLAN İNGEÇ<br><b>Derslik:</b>FEN-A1-K4-12<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+							</tr>
+							<tr>
+								<td width="10%" align="center">
+									<font size="2"><b>15:45 16:30</b></font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1"><b>Psikoloji</b><br>PSİ 1012-Statistics for Psychology II<br>1.Şube
+										Uygulama<br>PROF.DR. ESİN FİRUZAN<br><b>Derslik:</b>FEN-A1-K4-13<br><b>Ogrenim
+											Sekli:</b>Normal Ogretim<br>&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+								<td width="15%" align="center">
+									<font size="1">&nbsp;</font>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</body>
+
+</html>

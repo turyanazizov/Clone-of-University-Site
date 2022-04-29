@@ -1,0 +1,255 @@
+{% load static %}
+<html>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+
+<head>
+	<title>D.E.U. Bilisim Servisleri</title>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+	<link href= " {% static 'css/deu.css' %} " rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+	<style type="text/css">
+		<!--
+		.style6 {
+			color: #F7F8FC
+		}
+
+		.style8 {
+			font-size: 21px
+		}
+
+		li {
+			color: #FF9900;
+		}
+
+		.style10 {
+			color: #F7F8FC;
+			font-family: Arial, Helvetica, sans-serif;
+			font-size: 24px;
+		}
+
+		#alImg img {
+			filter: progid:DXImageTransform.Microsoft.Alpha(opacity=0);
+		}
+
+		#alImg {
+			filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="{% static 'images/deulogotransparan.png' %}");
+					display: inline-block;
+			}
+		-->
+		.ekle:before {
+		content:"site:deu.edu.tr
+		"
+		}
+
+	</style>
+	<script>
+		function AramaTemizle() {
+			if (document.frmarama.query.value == "Site Içi Arama") {
+				document.frmarama.query.value = "";
+			}
+			return 0;
+		}
+	</script>
+	<table width="994" border="0" cellpadding="0" cellspacing="0" style="background-image:url({% static 'images/bg1.jpg' %} );">
+		<form name="frmarama" action="https://www.google.com.tr/?search#q=" method="get" target="blank">
+			<tbody>
+				<tr>
+					<td width="112">
+						<div align="center"><span id="alImg" style="width:30px;height:50px;">
+								<img src="{% static 'images/deulogotransparan.png' %}" width="53" height="49"></span></div>
+					</td>
+					<td width="371">
+						<div align="center"><span class="style8">
+								<!--<span class="style1">DOKUZ EYLUL UNIVERSITESI</span>-->
+								<span class="style10">DOKUZ EYLUL UNIVERSITESI</span></span></div>
+					</td>
+					<td width="353">
+						<div align="center"><span class="style6"><a style="color:#FFFFFF;" href="debis.html">DEBIS</a> |
+								<a style="color:#FFFFFF;" href="DEUWeb/English/Icerik/Icerikffa7.html?KOD=0">ENGLISH</a>
+								| <a style="color:#FFFFFF;" href="http://www.deu.edu.tr/">ANA SAYFA</a> | </span><a
+								style="color:#FFFFFF;" href="http://kisi.deu.edu.tr/" target="_blank">KISISEL
+								SAYFALAR</a></div>
+					</td>
+					<td width="85"><input name="query" value="Site Içi Arama" size="12" onFocus="AramaTemizle();"
+							type="text" class="ekle"></td>
+					<td style="text-align: right;" width="73">
+						<div align="center">
+							<input value="ARA" class="buton" type="submit" style="background-color:#FF9900;">
+
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</form>
+	</table>
+	<table width='994' border='0' cellpadding='1' bgcolor='#fffffa' class='borderall'>
+		<tr valign='top'>
+			<td width='75%' height='17' bgcolor='#e6ecf2'>
+				<p align='left'><b>.::. D.E.U. Bilisim Servisleri </b></p>
+			</td>
+		</tr>
+		<tr valign='top'>
+			<td height='100' valign='middle' align='center'>
+				<table width='98%' border='0' cellpadding='0' align='center'>
+					<tr>
+						<td width='30%' valign='top'>
+							<FORM method='post'>
+								{% csrf_token %}
+								<table width='100%' border='0' cellpadding='0' bgcolor='#EAEAEA'>
+									<tr>
+										<td><b>Kullanıcı Adınız</b></td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td><input type='text' name='username' style='width:150px'></td>
+										<td>
+											<font color='#990000' size=2><B>@</B></font>
+										</td>
+										<td>
+											<select name='emailHost' size='1' style='width:100px'>
+												<option value='deu.edu.tr' selected>deu.edu.tr</option>
+												<option value='ogr.deu.edu.tr'>ogr.deu.edu.tr</option>
+											</select>
+										</td>
+									</tr>
+									<tr>
+										<td><b>Sifreniz</b></td>
+										<td>&nbsp;</td>
+										<td>&nbsp;</td>
+									</tr>
+									<tr>
+										<td><input type='password' name='password' style='width:150px' maxlength='16'>
+										</td>
+										<td>&nbsp;</td>
+										<td><input type='submit' name='tamam' value='Gönder' class='buton'
+												style='width:100px'></td>
+									</tr>
+									<tr>
+										<td colspan='3'> <br />
+											<br />
+											<a href="https://debishs.deu.edu.tr/" target="_blank">
+												<img src="{% static 'images/debis_sorun_cozme.jpg' %}" align="center"></a>
+
+										</td>
+									</tr>
+								</table>
+							</form>
+						</td>
+						<td width='70%' valign='top'>
+							<table width='95%' border='0' cellpadding='0' align=center>
+								<tr>
+									<td align=left>
+										<h3> UYARILAR :</h3>
+
+
+
+										<strong>
+											<p>Ögrenci DEBIS Girisi Bilgilendirme ;<br />
+												<!-- 1. Kullanıcı adınız <a href='mailto:isim.soyisim@ogr.deu.edu.tr'>isim.soyisim@ogr.deu.edu.tr</a> formatında aldıgınız eposta adresinizin  isim.soyisim  kısmıdır.<br />
+  2. Eposta adresi almadıysanız kullanıcı adınız &quot;ögrenci  numara&quot;nızdır. <br />
+  3. Isim ve Soy isminiz ile eposta adresi almak isteyen  ögrencilerimiz bu <u><a href='http://mailogr.deu.edu.tr' target='_blank'>link</a></u> üzerinden edinebilirsiniz. <br /-->
+												1. Debis Girisi yaparken @ogr.deu.edu.tr uzantısını seçtiginizden emin
+												olunuz.<br />
+												2.&nbsp; Debis Hesabınızla ilgili, Sorun Çözme, Sifre Güncelleme ve
+												Sifre Sıfırlama islemleri için Sorun Çözme Ekranını kullanınız.</p>
+										</strong>
+										<hr />
+
+										<center><a href='https://www.egekariyerfuari.org/' target='_blank'><img
+													src="{% static 'images/USP.jpg' %}"></a></center>
+										<hr />
+
+										<font color='red'>
+											<p><strong>Değerli kullanıcı; </strong> <br />
+												Afet ve Acil Durum Yönetimi Başkanlığı tarafından hazırlanan
+												<strong>Afet Farkındalık Eğitimi</strong> konulu eğitim,
+												Cumhurbaşkanlığı İnsan Kaynakları Ofisi Başkanlığı <a
+													href='https://egitim.cbiko.gov.tr/'
+													target='_blank'>https://egitim.cbiko.gov.tr</a> adresinde yer alan
+												Uzaktan Eğitim Kapısına yüklenmiştir. <br />
+												Afet durumunda hayati önem taşıyan eğitimi izlemenizi önemle rica
+												ederiz.
+											</p>
+										</font>
+										<hr />
+
+
+										<font color='red'>
+											<p>
+												AFAD tarafından hazırlanan eğitim videoları YTNK TV eğitim platformumuza
+												öğrencilerimiz için yüklenmiştir. Platforma üye olup giriş sağlandıktan
+												sonra EĞİTİMLER bölümünde yer alan AFAD-Afet Farkındalık Eğitimleri
+												bölümünden eğitim videolarına ulaşım sağlanmaktadır.<br />
+												Video linki: <a
+													href='https://ytnk.tv/YtnkTv_AFAD_Afet_Farkindalik_Egitimleri'
+													target='_blank'>https://ytnk.tv/YtnkTv_AFAD_Afet_Farkindalik_Egitimleri</a>
+											</p>
+										</font>
+										<hr />
+
+									</td>
+								</tr>
+								<tr>
+									<td align=center valign=bottom>
+										<br /> <br /><br /><br /><br /> <br /><br /><br />
+										<a href='http://webmail.deu.edu.tr/mail/src/login.php' target='_blank'>Personel
+											Eposta Arayüzü</a> <b>|</b>
+										<a href='http://webmail.deu.edu.tr/ogrmail/src/login.php'
+											target='_blank'>Ögrenci Eposta Arayüzü</a>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan='2' class=borderalt>&nbsp;</td>
+					</tr>
+
+					<tr>
+						<td height='20px' colspan='2'><br />
+
+
+
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+		<tr>
+			<td width='100%' height='15' align='right'></td>
+		</tr>
+	</table>
+	</TD>
+	</TR>
+	</TABLE>
+</body>
+<iframe id='hiddenframe' src='#' style='height:0px; width:0px;'></iframe>
+
+<script>
+	var currentElement;
+	var nowLoading = false;
+
+	function loadContent(element, kod, sira) {
+		if (element.innerHTML != "#" && element.innerHTML != null && element.innerHTML != "") {
+			return;
+		}
+		currentElement = element;
+		element.innerHTML = "Yukleniyor!<br>Lutfen bekleyiniz...";
+		hiddenframe.location.replace("IcerikLoaderf836.html?KOD=" + kod + "&SIRA=" + sira);
+		nowLoading = true;
+	}
+
+	function setContent(HTML) {
+		nowLoading = false;
+		currentElement.innerHTML = HTML;
+		currentElement = null;
+	}
+</script>
+
+<!-- Mirrored from debis.deu.edu.tr/debis.php by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 28 Apr 2022 08:37:26 GMT -->
+
+</html>
