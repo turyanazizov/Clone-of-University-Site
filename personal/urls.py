@@ -4,7 +4,7 @@ from personal.views import personal,belgetalebi,hak,iban,ders,yeni_kayit,ilk_kay
 app_name = 'personal'
 
 urlpatterns = [
-    path('personal/', personal, name='personal'),
+    path('', personal, name='personal'),
     path('OgrenciIsleri/Ogrenci/belge_talep/index.php',belgetalebi, name='belgetalebi'),
     path('OgrenciIsleri/Ogrenci/hak_saklama/index.php',hak, name='hak'),
     path('OgrenciIsleri/Ogrenci/iban/index.php',iban, name='iban'),
