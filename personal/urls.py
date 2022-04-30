@@ -1,11 +1,11 @@
 from django.urls import path
-from personal.views import personal,belgetalebi,hak,iban,ders,yeni_kayit,ilk_kayit,yabanci,dikey,katki,anket,mesaj,notgorme,devamsizlik,nott
+from personal.views import personal,BelgeTemplateView,MesajTemplateView,AnketTemplateView,hak,iban,ders,yeni_kayit,ilk_kayit,yabanci,dikey,katki,notgorme,devamsizlik,nott
 
 app_name = 'personal'
 
 urlpatterns = [
-    path('personal/', personal, name='personal'),
-    path('OgrenciIsleri/Ogrenci/belge_talep/index.php/',belgetalebi, name='belgetalebi'),
+    path('', personal, name='personal'),
+    path('OgrenciIsleri/Ogrenci/belge_talep/index.php/',BelgeTemplateView.as_view(), name='belgetalebi'),
     path('OgrenciIsleri/Ogrenci/hak_saklama/index.php/',hak, name='hak'),
     path('OgrenciIsleri/Ogrenci/iban/index.php/',iban, name='iban'),
     path('OgrenciIsleri/Ogrenci/DersProgrami/index.php/',ders, name='ders'),
@@ -14,9 +14,9 @@ urlpatterns = [
     path('OgrenciIsleri/Ogrenci/OgrenciBelgeDeyos/index.php/',yabanci, name='yabanci'),
     path('OgrenciIsleri/Ogrenci/OgrenciBelgeDgs/index.php/',dikey, name='dikey'),
     path('OgrenciIsleri/Ogrenci/OgrenciHarc/index.php/',katki, name='katki'),
-    path('DEUWeb/Anket/index.php/',anket, name='anket'),
+    path('DEUWeb/Anket/index.php/',AnketTemplateView.as_view(), name='anket'),
     path('OgrenciIsleri/Ogrenci/OgrenciNotu/index.php/',notgorme, name='notgorme'),
     path('OgrenciIsleri/Ogrenci/ydy_devamsizlik/index.php/',devamsizlik, name='devamsizlik'),
     path('OgrenciIsleri/Ogrenci/transcript/index.php/',nott, name='nott'),
-    path('DEUWeb/mesaj/index.php/',mesaj, name='mesaj'),
+    path('DEUWeb/mesaj/index.php/',MesajTemplateView.as_view(), name='mesaj'),
 ]

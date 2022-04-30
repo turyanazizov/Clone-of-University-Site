@@ -1,11 +1,11 @@
 from urllib import request
 from django.shortcuts import render
-
+from django.views.generic import TemplateView
 def personal(request):
     return render(request,'personal.html')
 
-def belgetalebi(request):
-    return render(request,'belge.html')
+class BelgeTemplateView(TemplateView):
+    template_name = 'belge.html'
 
 def hak(request):
     return render(request,'hak.html')
@@ -31,8 +31,8 @@ def dikey(request):
 def katki(request):
     return render(request,'katki.html')
 
-def anket(request):
-    return render(request,'anket.html')
+class AnketTemplateView(TemplateView):
+    template_name = 'anket.html'
 
 def notgorme(request):
     return render(request,'notgorme.html')
@@ -43,5 +43,5 @@ def devamsizlik(request):
 def nott(request):
     return render(request,'not.html')
 
-def mesaj(request):
-    return render(request,'mesaj.html')
+class MesajTemplateView(TemplateView):
+    template_name = 'mesaj.html'
