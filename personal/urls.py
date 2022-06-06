@@ -18,5 +18,5 @@ urlpatterns = [
     path('OgrenciIsleri/Ogrenci/OgrenciNotu/index.php/debis.deu.edu.tr',notgorme, name='notgorme'),
     path('OgrenciIsleri/Ogrenci/ydy_devamsizlik/index.php/debis.deu.edu.tr',devamsizlik, name='devamsizlik'),
     path('OgrenciIsleri/Ogrenci/transcript/index.php/debis.deu.edu.tr',nott, name='nott'),
-    path('DEUWeb/mesaj/index.php/debis.deu.edu.tr',MesajTemplateView.as_view(), name='mesaj'),
+    path('DEUWeb/mesaj/index.php/debis.deu.edu.tr',MesajTemplateView.as_view(), name='mmesaj'),
 ]
