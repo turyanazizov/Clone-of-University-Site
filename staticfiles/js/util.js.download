@@ -1,0 +1,196 @@
+function check_form(form_name)
+{
+	var elemanCount=eval('document.' + form_name + '.elements.length');
+	
+	for(i=0;i<elemanCount;i++)
+	{
+		//alert(eval('document.' + form_name + '.elements[i].type'));
+		if(eval('document.' + form_name + '.elements[i].type')=='radio')
+		{
+			if(eval('document.' + form_name + '.elements[i].lang')==1)//zorunlu alan
+			{
+				var radiogrup=eval('document.' + form_name + '.elements[i].name');
+				var radiogrup_length=eval('document.' + form_name + '.' + radiogrup + '.length');
+
+				var radiogrup_checked=false;
+				for(j=0;j<radiogrup_length;j++)
+				{
+					if(eval('document.' + form_name + '.' + radiogrup + '[' + j + '].checked'))
+					{
+						radiogrup_checked=true;
+						break;
+					}//end if
+				}//end for
+
+				if(radiogrup_checked==false)
+				{
+					if(is_numeric(eval('document.' + form_name + '.elements[i].title')))
+					{
+						alert(eval('document.' + form_name + '.elements[i].title') + '. soruyu yanýtlamadan geçemezsiniz!');
+					}//end if
+					else
+					{
+						alert('"' + eval('document.' + form_name + '.elements[i].title') + '" sorusunu yanýtlamadan geçemezsiniz!');
+					}//end else
+					
+					return false;
+				}//end if
+			}//end if
+		}//end if
+		else if(eval('document.' + form_name + '.elements[i].type')=='checkbox')
+		{
+			if(eval('document.' + form_name + '.elements[i].lang')==1)//zorunlu alan
+			{
+				var checkboxgrup=eval('document.' + form_name + '.elements[i].name');
+
+				var chks = document.getElementsByName(checkboxgrup);
+
+				var checkboxgrup_checked=false;
+				for(j=0;j<chks.length;j++)
+				{
+					if(chks[j].checked)
+					{
+						checkboxgrup_checked=true;
+						break;
+					}//end if
+				}//end for
+				
+				if(checkboxgrup_checked==false)
+				{
+					if(is_numeric(eval('document.' + form_name + '.elements[i].title')))
+					{						
+						alert(eval('document.' + form_name + '.elements[i].title') + '. soruyu yanýtlamadan geçemezsiniz!');
+					}//end if
+					else
+					{
+						alert('"' + eval('document.' + form_name + '.elements[i].title') + '" sorusunu yanýtlamadan geçemezsiniz!');
+					}//end else
+					
+					return false;
+				}//end if
+				
+			}//end if
+		}//end else if
+		
+		else if(eval('document.' + form_name + '.elements[i].type')=='text')
+		{
+			if(eval('document.' + form_name + '.elements[i].lang')==1)//zorunlu alan
+			{
+				if(trim(eval('document.' + form_name + '.elements[i].value')).length==0)
+				{
+					if(is_numeric(eval('document.' + form_name + '.elements[i].title')))
+					{
+						alert(eval('document.' + form_name + '.elements[i].title') + '. soruyu yanýtlamadan geçemezsiniz!');
+					}//end if
+					else
+					{
+						alert('"' + eval('document.' + form_name + '.elements[i].title') + '" sorusunu yanýtlamadan geçemezsiniz!');
+					}//end else
+					
+					return false;
+				}//end if
+			}//end if
+		}//end else if
+		else if(eval('document.' + form_name + '.elements[i].type')=='select-one')
+		{
+			var obj=eval('document.' + form_name + '.elements[i].name');
+			//alert(eval('document.' + form_name + '.elements[i].id') + '->' + eval('document.' + form_name + '.elements[i].lang'));
+			if(eval('document.' + form_name + '.elements[i].lang')==1)//zorunlu alan
+			{
+				var selectObj = document.getElementById(obj);
+				var selectValue=selectObj.options[selectObj.selectedIndex].value;
+				//alert(eval('document.' + form_name + '.elements[i].name') + '=>' + selectValue);
+				if(selectValue=='')
+				{
+					if(is_numeric(eval('document.' + form_name + '.elements[i].title')))
+					{
+						alert(eval('document.' + form_name + '.elements[i].name') + ' sorunu yanýtlamadan geçemezsiniz!');
+					}//end if
+					else
+					{
+						alert('"' + eval('document.' + form_name + '.elements[i].name') + '" sorusunu yanýtlamadan geçemezsiniz!');
+					}//end else
+					
+					return false;
+				}//end if
+			}//end if
+		}//end elseif
+	}//end for
+	
+	enabledAllFormEleman(form_name);
+	eval('document.' + form_name + '.SUBMIT.disabled=true');
+	eval('document.' + form_name + '.submited.value=\'E\'');															
+	eval('document.' + form_name + '.submit()');
+}//end function check_form
+
+function change_combobox(form_name,selectname)
+{
+	var selectValue=selectname.options[selectname.selectedIndex].value;
+
+	if(selectValue!='')
+	{			
+		enabledAllFormEleman(form_name);
+		eval('document.' + form_name + '.submit()');
+	}//end if
+}//end function change_combobox
+
+function geri_sayfa(step)
+{
+	document.myform.ADIM.value=step-1;
+	document.myform.posted.value='H';
+	document.myform.action='index.php?ADIM=' + document.myform.ADIM.value;
+	document.myform.submit();
+}//end function change_combobox
+
+function enabledAllFormEleman(form_name)
+{
+	var elemanCount=eval('document.' + form_name + '.elements.length');
+	
+	for(i=0;i<elemanCount;i++)
+	{
+		if(eval('document.' + form_name + '.elements[i].type')=='radio')
+		{
+			var radiogrup=eval('document.' + form_name + '.elements[i].name');
+			var radiogrup_length=eval('document.' + form_name + '.' + radiogrup + '.length');
+
+			for(j=0;j<radiogrup_length;j++)
+			{
+				if(eval('document.' + form_name + '.' + radiogrup + '[' + j + '].disabled')==true)
+				{
+					eval('document.' + form_name + '.' + radiogrup + '[' + j + '].disabled=false');
+				}//end if
+			}//end for
+		}//end if
+		else if(eval('document.' + form_name + '.elements[i].type')=='select-one')
+		{
+			var elemanName=eval('document.' + form_name + '.elements[i].name');
+			if(eval('document.' + form_name + '.' + elemanName + '.disabled')==true)
+			{
+				eval('document.' + form_name + '.' + elemanName + '.disabled=false');
+			}//end if
+		}//end else if
+	}//end for
+}//end function enabledAllFormEleman
+
+function is_numeric(sText)
+{
+   var ValidChars = '0123456789';
+   var IsNumber=true;
+   var Char;
+   
+   for (j = 0; j < sText.length && IsNumber == true; j++) 
+   { 
+      Char = sText.charAt(j); 
+      if (ValidChars.indexOf(Char) == -1) 
+      {
+         IsNumber = false;
+      }//end if
+   }//end for
+   
+   return IsNumber;
+}//end function is_numeric
+
+function trim(stringToTrim)
+{
+	return stringToTrim.replace(/^\s+|\s+$/g,'');
+}//end function trim

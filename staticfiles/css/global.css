@@ -1,0 +1,196 @@
+.clearfloat {
+	clear: both;
+	display: block;
+}
+
+#mainNav LI {
+	BACKGROUND-IMAGE: url(../images/navBtn.gif);
+	BACKGROUND-COLOR: #fff;
+	LIST-STYLE-TYPE: none;
+	BACKGROUND-REPEAT: no-repeat;
+	BACKGROUND-POSITION: right top;
+	FLOAT: left;
+	HEIGHT: 30px;
+	LIST-STYLE-IMAGE: none;
+	border-bottom: thin #CCC solid;
+	border-top: thin #CCC solid;
+}
+
+#mainNav LI.current {
+	BACKGROUND-IMAGE: url(../images/navCurrentBtn.gif);
+	BACKGROUND-COLOR: #66A1D2
+}
+
+#mainNav LI.lastDone {
+	BACKGROUND-IMAGE: url(../images/navLastDoneBtn.gif);
+	BACKGROUND-COLOR: #25547B
+}
+
+#mainNav LI.done {
+	BACKGROUND-IMAGE: url(../images/navDoneBtn.gif);
+	BACKGROUND-COLOR: #25547B
+}
+
+#mainNav LI A {
+	COLOR: #ccc
+}
+
+#mainNav LI A:link {
+	COLOR: #ccc
+}
+
+#mainNav LI A:visited {
+	COLOR: #ccc
+}
+
+#mainNav LI A:hover {
+	COLOR: #ccc
+}
+
+#mainNav LI A:active {
+	COLOR: #ccc
+}
+
+#mainNav LI.lastDone A {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.lastDone A:link {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.lastDone A:visited {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.lastDone A:hover {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.lastDone A:active {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.current A {
+	COLOR: #fff
+}
+
+#mainNav LI.current A:link {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.current A:visited {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.current A:hover {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.current A:active {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.done A {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.done A:link {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.done A:visited {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.done A:hover {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.done A:active {
+	COLOR: #FFCC00
+}
+
+#mainNav LI.done A:hover {
+	COLOR: #FFCC00;
+	CURSOR: hand
+}
+
+#mainNav LI.lastDone A:hover {
+	COLOR: #FFCC00;
+	CURSOR: hand
+}
+
+#mainNav LI {
+	FONT-STYLE: normal;
+	WIDTH: 150px;
+	DISPLAY: block;
+	FONT-WEIGHT: bold;
+	HEIGHT: 26px;
+	padding-left: 4px;
+	padding-top: 4px
+}
+
+#mainNav LI A SPAN {
+	WIDTH: 150px;
+	DISPLAY: block;
+	MARGIN-LEFT: 10px;
+	FONT-WEIGHT: normal;
+	HEIGHT: 26px
+}
+
+#mainNav LI.mainNavNoBg {
+	BACKGROUND-IMAGE: none
+}
+
+#mainNav LI A {
+	DISPLAY: block;
+}
+
+.fiveStep#mainNav LI {
+	WIDTH: 200px;
+	font-size: 10px;
+}
+
+.fiveStep#mainNav LI A {
+	WIDTH: 200px;
+	font-size: 10px;
+}
+
+
+/* hint */
+
+/* simple css-based tooltip */
+div.tooltip {
+	background-color: #FFCC00;
+	outline: 1px solid #669;
+	border: 1px solid #BFD1E9;
+	padding: 5px 5px;
+	width: 200px;
+	display: none;
+	color: #0066CC;
+	text-align: left;
+	font-size: 12px;
+	FONT-WEIGHT: bold;
+
+
+	/* outline radius for mozilla/firefox only */
+	outline-radius: 4px;
+	-moz-outline-radius: 4px;
+	-webkit-outline-radius: 4px;
+}
+
+#myform input.blue {
+	border: 1px solid #BFD1E9;
+	padding: 1px;
+}
+
+#myform input.btn {
+	color: #050;
+	font: bold 120% 'trebuchet ms', helvetica, sans-serif;
+	background-color: #FFCC00;
+	border: 1px solid #BFD1E9;
+	height: 30px;
+	padding: 10px;
+	text-align: center;
+}
