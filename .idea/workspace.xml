@@ -5,40 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bf9a2239-efea-4300-aec6-14999b775b90" name="Changes" comment="commit">
-      <change beforePath="$PROJECT_DIR$/core/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/core/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/autocomplete.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/autocomplete.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/base.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/base.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/changelists.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/changelists.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/dashboard.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/forms.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/forms.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/login.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/nav_sidebar.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/nav_sidebar.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/responsive.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/responsive.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/responsive_rtl.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/responsive_rtl.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/rtl.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/rtl.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/css/widgets.css" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/css/widgets.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/img/README.txt" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/img/README.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/img/calendar-icons.svg" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/img/calendar-icons.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-addlink.svg" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/img/icon-addlink.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/img/icon-changelink.svg" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/img/icon-changelink.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectBox.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/SelectBox.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/SelectFilter2.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/SelectFilter2.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/actions.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/actions.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/DateTimeShortcuts.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/admin/DateTimeShortcuts.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/admin/RelatedObjectLookups.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/autocomplete.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/autocomplete.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/calendar.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/calendar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/core.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/core.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/inlines.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/inlines.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/nav_sidebar.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/nav_sidebar.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/popup_response.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/popup_response.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate_init.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/prepopulate_init.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/urlify.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/urlify.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/jquery/jquery.min.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/LICENSE.txt" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/LICENSE.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.min.js" beforeDir="false" afterPath="$PROJECT_DIR$/staticfiles/admin/js/vendor/xregexp/xregexp.min.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,18 +15,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "turyanazizov"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;turyanazizov&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/turyanazizov/Clone-of-University-Site.git",
-    "accountId": "045c969f-38f2-426b-a915-d920293c13ac"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/turyanazizov/Clone-of-University-Site.git&quot;,
+    &quot;accountId&quot;: &quot;045c969f-38f2-426b-a915-d920293c13ac&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -68,20 +35,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "master",
-    "ignore_missing_gitignore": "true",
-    "last_opened_file_path": "/Users/turyan/Projects/university",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore_missing_gitignore&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/turyan/Projects/university&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -99,7 +66,10 @@
       <option name="presentableId" value="Default" />
       <updated>1732360588597</updated>
       <workItem from="1732360589642" duration="2663000" />
-      <workItem from="1733392167194" duration="1645000" />
+      <workItem from="1733392167194" duration="2008000" />
+      <workItem from="1733481154250" duration="439000" />
+      <workItem from="1746511497643" duration="141000" />
+      <workItem from="1746517120575" duration="991000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
