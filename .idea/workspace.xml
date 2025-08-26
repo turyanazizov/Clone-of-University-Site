@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bf9a2239-efea-4300-aec6-14999b775b90" name="Changes" comment="commit">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="bf9a2239-efea-4300-aec6-14999b775b90" name="Changes" comment="ds">
       <change beforePath="$PROJECT_DIR$/personal/templates/katki.html" beforeDir="false" afterPath="$PROJECT_DIR$/personal/templates/katki.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -88,7 +87,7 @@
       <workItem from="1746703880005" duration="4265000" />
       <workItem from="1752478973991" duration="1483000" />
       <workItem from="1754045889329" duration="2981000" />
-      <workItem from="1756211830488" duration="828000" />
+      <workItem from="1756211830488" duration="1063000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -138,7 +137,15 @@
       <option name="project" value="LOCAL" />
       <updated>1752479229507</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="ds">
+      <option name="closed" value="true" />
+      <created>1756214213761</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1756214213761</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -146,7 +153,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="commit" />
-    <option name="LAST_COMMIT_MESSAGE" value="commit" />
+    <MESSAGE value="ds" />
+    <option name="LAST_COMMIT_MESSAGE" value="ds" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/university$main.coverage" NAME="main Coverage Results" MODIFIED="1733392670306" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
