@@ -6,6 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="bf9a2239-efea-4300-aec6-14999b775b90" name="Changes" comment="commit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/personal/templates/katki.html" beforeDir="false" afterPath="$PROJECT_DIR$/personal/templates/katki.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -13,6 +14,19 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <excluded-from-favorite>
+      <branch-storage>
+        <map>
+          <entry type="LOCAL">
+            <value>
+              <list>
+                <branch-info repo="$PROJECT_DIR$" source="master" />
+              </list>
+            </value>
+          </entry>
+        </map>
+      </branch-storage>
+    </excluded-from-favorite>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitHubPullRequestSearchHistory">{
@@ -23,7 +37,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/turyanazizov/Clone-of-University-Site.git&quot;,
+    &quot;url&quot;: &quot;git@github.com:turyanazizov/Clone-of-University-Site.git&quot;,
     &quot;accountId&quot;: &quot;045c969f-38f2-426b-a915-d920293c13ac&quot;
   }
 }</component>
@@ -72,6 +86,9 @@
       <workItem from="1746517120575" duration="991000" />
       <workItem from="1746687086821" duration="234000" />
       <workItem from="1746703880005" duration="4265000" />
+      <workItem from="1752478973991" duration="1483000" />
+      <workItem from="1754045889329" duration="2981000" />
+      <workItem from="1756211830488" duration="828000" />
     </task>
     <task id="LOCAL-00001" summary="commit">
       <option name="closed" value="true" />
@@ -113,7 +130,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746704679516</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="commit">
+      <option name="closed" value="true" />
+      <created>1752479229507</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1752479229507</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
